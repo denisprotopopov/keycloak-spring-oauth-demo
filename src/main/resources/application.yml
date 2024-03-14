@@ -1,0 +1,33 @@
+server.port: 8844
+
+#spring.security.oauth2.client.provider.rise.issuer-uri: http://localhost:8080/realms/rise
+#
+#spring:security.oauth2.client.registration.rise.provider: rise
+#spring.security.oauth2.client.registration.rise.client-name: employees
+#spring.security.oauth2.client.registration.rise.client-id: employees
+#spring.security.oauth2.client.registration.rise.client-secret: EasXrLpKU1Q3JHoE7T59dIgIqVbU1WXC
+#spring.security.oauth2.client.registration.rise.scope: openid,offline_access,profile
+#spring.security.oauth2.client.registration.rise.authorization-grant-type: authorization_code
+
+issuer: http://localhost:8080/realms/rise
+client-id: employees
+client-secret: EasXrLpKU1Q3JHoE7T59dIgIqVbU1WXC
+
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${issuer}
+        registration:
+          keycloak-login:
+            provider: keycloak
+            authorization-grant-type: authorization_code
+            client-id: ${client-id}
+            client-secret: ${client-secret}
+            scope: openid,profile,email,offline_access,profile
+      resourceserver:
+        jwt:
+          issuer-uri: ${issuer}
+          jwk-set-uri: http://localhost:8080/realms/rise/protocol/openid-connect/certs
